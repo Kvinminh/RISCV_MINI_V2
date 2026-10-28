@@ -1,0 +1,98 @@
+ctb/mem_interconnect/
+├── mem_interconnect_pkg.sv                 <- chỉ chứa `include, KHÔNG viết class ở đây
+├── mem_interconnect_if.sv                  <- interface tín hiệu (có thể tách if_master / if_slave nếu khác pin)
+│
+├── env/
+│   ├── mem_interconnect_cfg.sv             <- config object: số master, slave, address map, active/passive
+│   ├── mem_interconnect_env.sv
+│   └── mem_interconnect_virtual_seqr.sv    <- virtual sequencer, điều phối nhiều agent
+│
+├── agents/
+│   ├── master/
+│   │   ├── mem_interconnect_master_txn.sv
+│   │   ├── mem_interconnect_master_driver.sv
+│   │   ├── mem_interconnect_master_monitor.sv
+│   │   ├── mem_interconnect_master_sqr.sv
+│   │   └── mem_interconnect_master_agent.sv
+│   └── slave/
+│       ├── mem_interconnect_slave_txn.sv
+│       ├── mem_interconnect_slave_driver.sv
+│       ├── mem_interconnect_slave_monitor.sv
+│       ├── mem_interconnect_slave_sqr.sv
+│       └── mem_interconnect_slave_agent.sv
+│
+├── checkers/
+│   ├── mem_interconnect_ref_model.sv       <- dự đoán expected (routing, arbitration...)
+│   ├── mem_interconnect_scoreboard.sv      <- so sánh actual vs expected
+│   └── mem_interconnect_coverage.sv        <- functional coverage
+│
+├── sequences/
+│   ├── mem_interconnect_seq_pkg.sv         <- include tất cả seq
+│   ├── mem_interconnect_seq_base.sv
+│   ├── mem_interconnect_seq_random.sv
+│   ├── mem_interconnect_seq_directed.sv
+│   └── mem_interconnect_virtual_seq.sv     <- virtual sequence, chạy song song trên nhiều master
+│
+├── tests/
+│   ├── mem_interconnect_test_pkg.sv        <- include tất cả test
+│   ├── test_base.sv
+│   ├── test_random.sv
+│   └── test_directed.sv
+│
+└── tb_top.sv
+
+
+
+
+
+
+tb/alu/
+├── alu_pkg.sv                    <- chỉ chứa `include, KHÔNG viết class ở đây
+├── alu_if.sv                     <- interface: opcode, operand_a, operand_b, result, flags...
+│
+├── alu_txn.sv                    <- field + copy/clone/convert2string + constraint randomize
+│
+├── agent/
+│   ├── alu_driver.sv
+│   ├── alu_monitor.sv
+│   ├── alu_sqr.sv                <- thường chỉ 1 dòng typedef, có thể gộp vào agent.sv
+│   └── alu_agent.sv
+│
+├── checkers/
+│   ├── alu_ref_model.sv          <- tính kết quả kỳ vọng bằng phép toán SV thuần (+, -, &, |, ^...)
+│   ├── alu_scoreboard.sv         <- so sánh actual vs expected
+│   └── alu_coverage.sv           <- coverage theo opcode, corner case (overflow, /0, all-0, all-1...)
+│
+├── env/
+│   └── alu_env.sv                <- gộp agent + ref_model + scoreboard + coverage
+│
+├── sequences/
+│   ├── alu_seq_base.sv
+│   ├── alu_seq_random.sv
+│   └── alu_seq_directed.sv       <- test riêng từng opcode, edge case
+│
+├── tests/
+│   ├── alu_test_base.sv
+│   ├── alu_test_random.sv
+│   └── alu_test_directed.sv
+│
+└── tb_top.sv
+
+
+tb/alu/
+├── alu_if.sv                <- interface tín hiệu
+├── alu_txn.sv                <- transaction: field + randomize + copy/clone/convert2string
+│
+├── alu_generator.sv          <- SINH transaction, đẩy qua mailbox cho driver
+├── alu_driver.sv             <- LẤY txn từ mailbox, lái tín hiệu ra interface
+├── alu_monitor.sv            <- BẮT tín hiệu từ interface, đóng gói lại thành txn, đẩy qua mailbox cho scoreboard
+├── alu_scoreboard.sv          <- nhận txn từ monitor, tự tính expected, so sánh, báo PASS/FAIL
+├── alu_coverage.sv           <- nhận txn từ monitor (hoặc mailbox riêng), sample coverage
+│
+├── alu_env.sv                <- new() tất cả object trên, tạo mailbox, kết nối, gọi run() // build_phase kiểu thủ công
+│
+├── alu_test.sv                <- new() env, set số lượng txn cần generate, gọi env.run()
+└── tb_top.sv                  <- module top, instance DUT + interface, gọi new alu_test rồi test.run()
+
+
+

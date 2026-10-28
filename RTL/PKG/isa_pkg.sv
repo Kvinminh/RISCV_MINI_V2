@@ -4,9 +4,15 @@
 /* verilator lint_off MODDUP */
 package isa_pkg;
 
+
+
+
 ///////////////////////////// 
 // Instruction Set Architecture (ISA) Package
 /////////////////////////////
+
+
+
 
 // 1. OPCODE Definitions
 typedef enum logic [6:0] {

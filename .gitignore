@@ -1,0 +1,4 @@
+obj_dir/
+list_file/
+.slang/
+*.vcd

@@ -8,7 +8,7 @@ import core_pkg::*;
 );
 
     parameter IMEM_DEPTH = 1024;
-     localparam int ADDR_W = $clog2(IMEM_DEPTH); // = 10
+    localparam int ADDR_W = $clog2(IMEM_DEPTH); // = 10
     logic [XLEN-1:0] memory[0:IMEM_DEPTH-1];
 // Tải chương trình vào bộ nhớ từ file hex (dùng cho mô phỏng)
     initial begin
