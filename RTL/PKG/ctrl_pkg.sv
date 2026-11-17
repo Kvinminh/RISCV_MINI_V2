@@ -15,11 +15,12 @@ typedef enum logic {
 // stage 2: ID
 
 
-typedef enum logic [1:0] { 
-    RS1_DATA_ID = 2'b00,
-    RD_DATA_EX  =2'b01,
-    RD_DATA_MEM  =2'b10,
-    RS2_DATA_ID = 2'b11
+typedef enum logic [2:0] { 
+    RS1_DATA_ID = 3'b000,
+    RD_DATA_EX  =3'b001,
+    RD_DATA_MEM  =3'b010,
+    RS2_DATA_ID = 3'b011,
+    RD_DATA_WB = 3'b100
 } for_sel_e;
 
 

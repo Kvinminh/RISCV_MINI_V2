@@ -5,13 +5,13 @@ import isa_pkg::*;
 (
     input logic             clk,
     input logic             rst_n,
-    input ex_mem_reg_t       reg_i,
-    output ex_mem_reg_t      reg_o
+    input ex_mem_reg_t       ex_reg_i,
+    output ex_mem_reg_t      reg_mem_o
 );
 
 always_ff @( posedge clk  or negedge rst_n)begin
-    if(!rst_n) reg_o <= '0;
-    else reg_o <= reg_i;
+    if(!rst_n) reg_mem_o <= '0;
+    else reg_mem_o <= ex_reg_i;
 end
 
 endmodule

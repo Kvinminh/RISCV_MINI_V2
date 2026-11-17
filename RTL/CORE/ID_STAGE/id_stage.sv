@@ -11,8 +11,10 @@ import core_pkg::*;
     input regfile_wb  wb_i,
     input for_info_t  for_info_ex_i, // hazzard forwward
     input for_info_t  for_info_mem_i,// hazzard forwward
+    input for_info_t  for_info_wb_i,
     input logic [XLEN-1:0]        alu_ex_i,
     input logic [XLEN-1:0]        alu_mem_i,
+    input logic [XLEN-1:0]        alu_wb_i,
 
     output jump_t     jump_o,
     output hzd_ctrl_t hzd_ctrl_o,
@@ -107,6 +109,7 @@ import core_pkg::*;
         .rs2_addr_i(rs2_addr),
         .for_info_ex_i(for_info_ex_i),
         .for_info_mem_i(for_info_mem_i),
+        .for_info_wb_i(for_info_wb),
         .for_id_a_o(for_id_a),
         .for_id_b_o(for_id_b)
     );
@@ -123,6 +126,7 @@ import core_pkg::*;
         
         .alu_ex_i(alu_ex_i),
         .alu_mem_i(alu_mem_i),
+        .alu_wb_i(alu_wb_i),
         .for_id_a_i(for_id_a),
         .for_id_b_i(for_id_b),
         .compare_a_o(compare_a),

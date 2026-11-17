@@ -27,7 +27,7 @@ module regfile_top;
 
 
     initial begin
-        $dumpfile("tb_regfiel.vcd");
+        $dumpfile("wave.vcd");
         $dumpvars(0,tb_regfile);
     end
 

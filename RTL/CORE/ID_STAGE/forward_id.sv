@@ -8,6 +8,7 @@ import core_pkg::*;
 
     input for_info_t  for_info_ex_i,
     input for_info_t  for_info_mem_i,
+    input for_info_t  for_info_wb_i,
 
     output for_sel_e  for_id_a_o,
     output for_sel_e  for_id_b_o
@@ -16,43 +17,31 @@ import core_pkg::*;
     always_comb begin : sel_for_id_a_o
         for_id_a_o = RS1_DATA_ID;
         if (rs1_addr_i != REG_ZERO) begin
-            if (
-                for_info_ex_i.reg_en &&
-                (for_info_ex_i.rd_addr != REG_ZERO) &&
-                (rs1_addr_i == for_info_ex_i.rd_addr)
-            ) begin
+            if (for_info_ex_i.reg_en && (for_info_ex_i.rd_addr != REG_ZERO)
+                && (rs1_addr_i == for_info_ex_i.rd_addr))
                 for_id_a_o = RD_DATA_EX;
-            end
-
-            else if (
-                for_info_mem_i.reg_en &&
-                (for_info_mem_i.rd_addr != REG_ZERO) &&
-                (rs1_addr_i == for_info_mem_i.rd_addr)
-            ) begin
+            else if (for_info_mem_i.reg_en && (for_info_mem_i.rd_addr != REG_ZERO)
+                && (rs1_addr_i == for_info_mem_i.rd_addr))
                 for_id_a_o = RD_DATA_MEM;
-            end
+            else if (for_info_wb_i.reg_en && (for_info_wb_i.rd_addr != REG_ZERO)
+                && (rs1_addr_i == for_info_wb_i.rd_addr))
+                for_id_a_o = RD_DATA_WB;
         end
     end
-
 
     always_comb begin : sel_for_id_b_o
         for_id_b_o = RS2_DATA_ID;
         if (rs2_addr_i != REG_ZERO) begin
-            if (
-                for_info_ex_i.reg_en &&
-                (for_info_ex_i.rd_addr != REG_ZERO) &&
-                (rs2_addr_i == for_info_ex_i.rd_addr)
-            ) begin
+            if (for_info_ex_i.reg_en && (for_info_ex_i.rd_addr != REG_ZERO)
+                && (rs2_addr_i == for_info_ex_i.rd_addr))
                 for_id_b_o = RD_DATA_EX;
-            end
-
-            else if (
-                for_info_mem_i.reg_en &&
-                (for_info_mem_i.rd_addr != REG_ZERO) &&
-                (rs2_addr_i == for_info_mem_i.rd_addr)
-            ) begin
+            else if (for_info_mem_i.reg_en && (for_info_mem_i.rd_addr != REG_ZERO)
+                && (rs2_addr_i == for_info_mem_i.rd_addr))
                 for_id_b_o = RD_DATA_MEM;
-            end
+            else if (for_info_wb_i.reg_en && (for_info_wb_i.rd_addr != REG_ZERO)
+                && (rs2_addr_i == for_info_wb_i.rd_addr))
+                for_id_b_o = RD_DATA_WB;
         end
     end
+
 endmodule
