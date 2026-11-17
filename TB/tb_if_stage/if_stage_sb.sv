@@ -40,13 +40,14 @@ class if_stage_sb;
 
                 // Kiểm tra độc lập để báo đủ mọi field sai trong cùng transaction
                 if (!pc_cur_ok)
-                    $error("\n[SB][FAIL] PC_CUR  ACTUAL=%0h  EXPECTED=%0h\n  JAL=%0b JALR=%0b BR_EN=%0b BR_TAKEN=%0b JUMP_ADDR=%0h",
+                    $error("\n[SB][FAIL] PC_CUR  ACTUAL=%0h  EXPECTED=%0h\n  JAL=%0b JALR=%0b BR_EN=%0b BR_TAKEN=%0b JUMP_ADDR=%0h ",
                            txn.if_reg.pc_cur, txn.expected_if_reg.pc_cur,
                            txn.data_control_jump_id.jal,
                            txn.data_control_jump_id.jalr,
                            txn.data_control_jump_id.br_en,
                            txn.data_control_jump_id.br_taken,
-                           txn.data_control_jump_id.pc_jump);
+                           txn.data_control_jump_id.pc_jump
+                           );
 
                 if (!pc_4_ok)
                     $error("\n[SB][FAIL] PC_4  ACTUAL=%0h  EXPECTED=%0h  (PC_CUR=%0h)",

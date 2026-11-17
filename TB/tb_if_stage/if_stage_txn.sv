@@ -8,6 +8,9 @@ class if_stage_txn;
     logic [XLEN-1:0] pc_next;
     if_id_reg_t if_reg;
     if_id_reg_t expected_if_reg;
+    // logic [XLEN-1:0] pc_4;
+    logic [XLEN-1:0] pc_cur;
+
 
 
     constraint c_rst_n {

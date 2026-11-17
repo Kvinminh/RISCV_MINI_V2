@@ -9,7 +9,7 @@ class if_stage_drv;
         int num_txn
     );
         this.vif = vif;
-        this.gen2drv;
+        this.gen2drv = gen2drv;
         this.num_txn= num_txn;
     endfunction
 
